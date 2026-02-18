@@ -1,17 +1,14 @@
 using Unity.VisualScripting;
+using System.Collections;
 using UnityEngine;
 
 public class Boton : MonoBehaviour
 {
     public GameObject player;
+    public GameManager manager;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    private Coroutine timerCoroutine;
 
-    // Update is called once per frame
     void Update()
     {
         Click();
@@ -20,7 +17,36 @@ public class Boton : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            player.SetActive(!player.activeSelf);
+            bool nuevoEstado = !player.activeSelf;
+            player.SetActive(nuevoEstado);
+
+            // Si se desactiva = iniciar timer
+            if (!nuevoEstado)
+            {
+                timerCoroutine = StartCoroutine(Dispear());
+            }
+            else
+            {
+                // Si se activa = cancelar timer
+                if (timerCoroutine != null)
+                {
+                    StopCoroutine(timerCoroutine);
+                    timerCoroutine = null;
+                }
+            }
         }
+    }
+    IEnumerator Dispear()
+    {
+        yield return new WaitForSeconds(2f);
+        if (manager != null)
+        {
+            manager.Return();
+        }
+        else
+        {
+            Debug.LogError("GameManager no está asignado en Boton");
+        }
+        player.SetActive(true);
     }
 }
