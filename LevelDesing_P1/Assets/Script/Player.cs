@@ -1,18 +1,32 @@
 using UnityEngine;
+using System.Collections;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
-    public float speed=3f;
+    public float speed = 3.5f;
     public int Life = 3;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public int gold = 20;
+
+    public TextMeshProUGUI lifeText;
+    public TextMeshProUGUI goldText;
+
     void Start()
     {
 
+
     }
 
-    // Update is called once per frame
     void Update()
     {
-        transform.position += transform.forward * speed * Time.deltaTime;
+        StartCoroutine(DelayStart());
     }
+    public void Move(){transform.position += transform.forward* speed * Time.deltaTime;}
+    IEnumerator DelayStart()
+    {
+        yield return new WaitForSeconds(1f);
+        Move();
+    }
+    public void LifeValue() => lifeText.text = $"{Life}";
+    public void GoldValue() => goldText.text = $"{gold}";
 }
