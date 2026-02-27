@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 
     public Transform StLev;
     public GameObject Player;
+    public GameObject shadow;
     public GameObject W;
     public GameObject L;
 
@@ -20,28 +21,35 @@ public class GameManager : MonoBehaviour
     }
     public void Win()
     {
-        W.SetActive(!W.activeSelf);
+        W.SetActive(true);
     }
     public void Lose()
     {
-        L.SetActive(!L.activeSelf);
+        L.SetActive(true);
     }
     public void Retry()
     {
-        Play.Life = 3;
+        Play.Life = 5;
+        Play.speed = 4f;
+        Play.gold = 30;
         W.SetActive(false);
         L.SetActive(false);
+        Player.SetActive(true);
+        //shadow.activeSelf(!);
     }
     public void Return()
     {
         if (Play.Life >= 0)
         {
             Player.transform.position = StLev.transform.position;
+            Play.speed = 3.5f;
         }
         if(Play.Life <= 0)
         {
-            Win();
+            L.SetActive(true);
             Play.speed = 0;
         }
     }
+
+    
 }

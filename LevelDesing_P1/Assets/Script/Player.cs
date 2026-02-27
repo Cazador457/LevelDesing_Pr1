@@ -4,9 +4,9 @@ using TMPro;
 
 public class Player : MonoBehaviour
 {
-    public float speed = 3.5f;
-    public int Life = 3;
-    public int gold = 20;
+    public float speed = 4f;
+    public int Life = 5;
+    public int gold = 30;
 
     public TextMeshProUGUI lifeText;
     public TextMeshProUGUI goldText;
